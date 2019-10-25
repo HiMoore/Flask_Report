@@ -1,0 +1,13 @@
+## ignore these files ## 
+
+venv/
+*.pyc
+__pycache__/
+instance/
+
+.pytest_cache/
+.coverate
+htmlcov/
+dist/
+build/
+*.egg-info/
