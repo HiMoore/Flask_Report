@@ -38,7 +38,7 @@ def register():
 def login():
     if request.method == 'POST':
         username = request.form['username']
-        password = password.form['password']
+        password = request.form['password']
         db = get_db()
         error = None
         user = db.execute(
@@ -75,7 +75,7 @@ def logout():
 
 
 def login_required(view):
-    @functools.wraps(**kwargs)
+    @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
             return redirect( url_for("auth.login") )
