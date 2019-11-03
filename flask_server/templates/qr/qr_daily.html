@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Echarts</title>
+    <script type="text/javascript" src="/static/echarts.min.js"></script>
+    <script type="text/javascript" src="/static/jquery-3.4.1.min.js"></script>
+    <!-- <script src="/static/assets/scripts/jquery.ba-resize.js"></script> -->
+    <style>
+        div{ text-align: center; margin:0 auto; } 
+    </style>
+</head>
+
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="qr_total" style="width: 80%; height: 400px; "></div>
+    <div id="qr_product" style="width: 80%;height: 400px; "></div>
+    <div id="qrApp_timeline" style="width: 80%; height: 400px; "></div>
+    
+    <script type="text/javascript" src="/static/qr_daily.js"></script>
+    <script>
+        qr_total(echarts); 
+        qr_product(echarts);
+        qrApp_timeline(echarts);
+    </script>
+   
+</body>
+</html>
