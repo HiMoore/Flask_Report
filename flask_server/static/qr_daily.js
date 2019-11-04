@@ -203,13 +203,14 @@ function qrApp_timeline(echarts) {
     // 指定图表的配置项和数据
     var option = {
         baseOption: {
-            timeline: { axisType: 'category', show: true, currentIndex: 1, data: [] },
+            timeline: { axisType: 'category', show: true, bottom: '3%', 
+                currentIndex: 6, data: [],  },
             xAxis: [{ type: 'category', boundaryGap: true, data: [] }], 
             yAxis: [{ type: 'value', name: '万笔' }], 
             series: [{ type: 'line', }, ], 
             title: { text: '二维码各APP的交易情况', subtext: '' },
             tooltip: { trigger: 'axis'},
-            grid: { left: '5%', right: '10%', bottom: '10%', containLabel: true }, 
+            grid: { left: '5%', right: '10%', bottom: '15%', containLabel: true }, 
             toolbox: { feature: { 
                             saveAsImage: {}, 
                             dataZoom: { yAxisIndex: 'none' }, 
@@ -277,7 +278,32 @@ function qrApp_timeline(echarts) {
                     series: [
                     {   name: '借记卡', type:'bar', stack: '笔数', data: debit[ data['index'][1] ] }, 
                     {   name: '贷记卡', type:'bar', stack: '笔数', data: credit[ data['index'][1] ] }]
-                } 
+                },  
+                {
+                    series: [
+                    {   name: '借记卡', type:'bar', stack: '笔数', data: debit[ data['index'][2] ] }, 
+                    {   name: '贷记卡', type:'bar', stack: '笔数', data: credit[ data['index'][2] ] }]
+                },  
+                {
+                    series: [
+                    {   name: '借记卡', type:'bar', stack: '笔数', data: debit[ data['index'][3] ] }, 
+                    {   name: '贷记卡', type:'bar', stack: '笔数', data: credit[ data['index'][3] ] }]
+                },  
+                {
+                    series: [
+                    {   name: '借记卡', type:'bar', stack: '笔数', data: debit[ data['index'][4] ] }, 
+                    {   name: '贷记卡', type:'bar', stack: '笔数', data: credit[ data['index'][4] ] }]
+                },  
+                {
+                    series: [
+                    {   name: '借记卡', type:'bar', stack: '笔数', data: debit[ data['index'][5] ] }, 
+                    {   name: '贷记卡', type:'bar', stack: '笔数', data: credit[ data['index'][5] ] }]
+                },  
+                {
+                    series: [
+                    {   name: '借记卡', type:'bar', stack: '笔数', data: debit[ data['index'][6] ] }, 
+                    {   name: '贷记卡', type:'bar', stack: '笔数', data: credit[ data['index'][6] ] }]
+                }  
                 ]
             });
             window.addEventListener("resize", function() { myChart.resize(); });

@@ -47,9 +47,9 @@ def qr_branch():
 
 @bp.route("/app", methods=('POST', 'GET'))
 def qr_app():
-    sp_app = qr_data.loc[ (qr_data['app_ins_id_cd'].isin(app_id[:5])) & (qr_data['hp_settle_dt'].isin(date_array[-2:])) ]
-    # product = sp_app.groupby(['date', 'app_ins_id_cd', 'card_attr'], as_index=False).sum().round(accurancy)
-    product = sp_app.pivot_table(index='date', columns=['app_ins_id_cd', 'card_attr'], values='trans_num', aggfunc=np.sum).round(accurancy)
+    sp_app = qr_data.loc[ (qr_data['app_ins_id_cd'].isin(app_id[1:16])) & (qr_data['hp_settle_dt'].isin(date_array[-7:])) ]
+    product = sp_app.pivot_table(index=['date', 'card_attr'], columns='app_ins_id_cd', values='trans_num', aggfunc=np.sum).round(accurancy)
+    product = product.unstack().fillna(0)
     app_sort = sp_app.pivot_table(index='date', columns='app_ins_id_cd', values='trans_num', aggfunc=np.sum).round(accurancy)
     app_sort = app_sort.sort_values(by=app_sort.index[-1], axis=1, ascending=False)
     product = product[ app_sort.columns ]
