@@ -55,3 +55,16 @@ def qr_app():
     product = product[ app_sort.columns ]
     return jsonify( product.to_dict(orient='split') )
 
+
+@bp.route("/oneApp", methods=('POST', 'GET'))
+def qr_oneApp():
+    if request.method == 'GET':
+        app_id = '00250001'
+    else:
+        app_id = request.values.get('app_id')
+    one_app = qr_data.query("app_ins_id_cd==@app_id")
+    daily_attr = one_app.pivot_table(index='date', columns='card_attr', values='trans_num', aggfunc=np.sum).reset_index()
+    daily_total = one_app.groupby('date', as_index=False).sum()
+    daily_attr = pd.concat([daily_attr, daily_total], axis=1)
+    daily_attr = daily_attr.round(accurancy)
+    return jsonify( daily_attr.to_dict( orient='list' ) )

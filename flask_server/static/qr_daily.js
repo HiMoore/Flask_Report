@@ -317,3 +317,103 @@ function qrApp_timeline(echarts) {
 
 
 
+function qr_oneApp(echarts) {
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('qr_oneApp_inside'));
+    // 指定图表的配置项和数据
+    var option = {
+        title: { text: '二维码单个APP的交易情况', subtext: '' },
+        tooltip: { trigger: 'axis'},
+        grid: { left: '5%', right: '10%', bottom: '10%', containLabel: true }, 
+        toolbox: { feature: { 
+                        saveAsImage: {}, 
+                        dataZoom: { yAxisIndex: 'none' }, 
+                        dataView: { readOnly: false }, 
+                        // magicType: { type: ['line', 'bar'] }, 
+                        restore: {}, 
+                        saveAsImage: {}
+                   }, 
+                   orient: 'vertical', 
+                   top: 'middle', 
+                   right: '3%' 
+        }, 
+        xAxis: { type: 'category', boundaryGap: true, data: [] },
+        yAxis: { type: 'value', name: '万笔 / 万元' },
+        series: [], 
+        dataZoom: [
+            { type: 'slider', show: true, 
+              height: '4%', bottom: '5%', 
+              filterMode: 'weakFilter', 
+              handleIcon: 'M10.7,11.9H9.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z', 
+              handleSize: '80%'
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    myChart.showLoading(); 
+    $.ajax({
+        url: '/qr/oneApp', 
+        type: 'post', 
+        async: true,
+        data: {'app_id': '00250001'}, 
+        dataType: 'json', 
+        success: function (data) {
+            var length = data['date'].length; 
+            myChart.hideLoading();
+            myChart.setOption({
+                xAxis: { data: data['date'] }, 
+                legend: { left: 'center', top: '7%', 
+                    data:['借记卡', '贷记卡', '优惠笔数', '优惠金额'] 
+                },
+                series: [
+                    {   name: '借记卡', type: 'bar', stack: '笔数', data: data['01'] }, 
+                    {   name: '贷记卡', type: 'bar', stack: '笔数', data: data['02'] },
+                    {   name: '优惠笔数', type: 'line', data: data['coupon_num'] }, 
+                    {   name: '优惠金额', type: 'line', data: data['coupon_at'] }
+                ], 
+                dataZoom: [{ startValue: data['date'].length - ranges, 
+                             endValue: data['date'].length
+                }]
+            });
+            window.addEventListener("resize", function() { myChart.resize(); });
+        }, 
+        error: function(e) {
+            alert("请求数据失败!");
+        }
+    });
+    $('#app_select').on('change', function() {
+        var val = $(this).val();
+        $.ajax({
+            url: '/qr/oneApp', 
+            type: 'post', 
+            async: true,
+            data: {'app_id': val}, 
+            dataType: 'json', 
+            success: function (data) {
+                var length = data['date'].length; 
+                myChart.hideLoading();
+                myChart.setOption({
+                    xAxis: { data: data['date'] }, 
+                    legend: { left: 'center', top: '7%', 
+                        data:['借记卡', '贷记卡', '优惠笔数', '优惠金额'] 
+                    },
+                    series: [
+                        {   name: '借记卡', type: 'bar', stack: '笔数', data: data['01'] }, 
+                        {   name: '贷记卡', type: 'bar', stack: '笔数', data: data['02'] },
+                        {   name: '优惠笔数', type: 'line', data: data['coupon_num'] }, 
+                        {   name: '优惠金额', type: 'line', data: data['coupon_at'] }
+                    ], 
+                    dataZoom: [{ startValue: data['date'].length - ranges, 
+                                 endValue: data['date'].length
+                    }]
+                });
+                window.addEventListener("resize", function() { myChart.resize(); });
+            }, 
+            error: function(e) {
+                alert("请求数据失败!");
+            }
+        })
+     });
+    
+};

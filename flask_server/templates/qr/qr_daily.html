@@ -16,12 +16,24 @@
     <div id="qr_total" style="width: 80%; height: 400px; "></div>
     <div id="qr_product" style="width: 80%;height: 400px; "></div>
     <div id="qrApp_timeline" style="width: 80%; height: 400px; "></div>
+    <div id="qr_oneApp" style="width: 80%; height: 400px; ">
+        <div id="qr_app_select" style="width: 10%; height: 20px; top: 20px; ">
+            <select id='app_select' >
+                <option value='00250001' selected="selected">云闪付APP</option>
+                <option value='49995042'>交通出行平台</option>
+                <option value='49990000'>中行手机银行</option>
+            </select>
+        </div>
+        <div id="qr_oneApp_inside" style="width: 80%; height: 400px; ">
+        </div>
+    </div>
     
     <script type="text/javascript" src="/static/qr_daily.js"></script>
     <script>
         qr_total(echarts); 
         qr_product(echarts);
         qrApp_timeline(echarts);
+        qr_oneApp(echarts);
     </script>
    
 </body>
