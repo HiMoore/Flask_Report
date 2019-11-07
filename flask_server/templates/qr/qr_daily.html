@@ -2,12 +2,15 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Echarts</title>
+    <title>QR Daily Report</title>
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-select.css" />
     <script type="text/javascript" src="/static/echarts.min.js"></script>
     <script type="text/javascript" src="/static/jquery-3.4.1.min.js"></script>
-    <!-- <script src="/static/assets/scripts/jquery.ba-resize.js"></script> -->
+    <script type="text/javascript" src="/static/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/bootstrap-select.js"></script>
     <style>
-        div{ text-align: center; margin:0 auto; } 
+        div{ text-align: center; margin:0 auto; vertical-align:middle; } 
     </style>
 </head>
 
@@ -16,15 +19,16 @@
     <div id="qr_total" style="width: 80%; height: 400px; "></div>
     <div id="qr_product" style="width: 80%;height: 400px; "></div>
     <div id="qrApp_timeline" style="width: 80%; height: 400px; "></div>
+    <br>
     <div id="qr_oneApp" style="width: 80%; height: 400px; ">
-        <div id="qr_app_select" style="width: 10%; height: 20px; top: 20px; ">
-            <select id='app_select' >
+        <div id="qr_app_select" class='dropdown' style="width: 40%; height: 20px; ">
+            <select id='app_select' class="selectpicker" title="APP" data-style='btn-info', data-width='40%'>
                 <option value='00250001' selected="selected">云闪付APP</option>
                 <option value='49995042'>交通出行平台</option>
                 <option value='49990000'>中行手机银行</option>
             </select>
         </div>
-        <div id="qr_oneApp_inside" style="width: 80%; height: 400px; ">
+        <div id="qr_oneApp_inside" style="width: 100%; height: 400px; ">
         </div>
     </div>
     
