@@ -17,31 +17,33 @@
 <body>
     <br>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="qrKPI_box" style="width: 80%; height: 400px; ">
+    <div id="qrKPI_box" style="width: 90%; height: 400px; ">
         <div id="qr_date_select" class='dropdown' style="width: 40%; height: 20px; ">
             <select id='date_select' class="selectpicker" title="日期" data-style='btn-info', data-width='40%'></select>
         </div>
         <div id="qr_total_kpi" style="width: 100%; height: 400px; "></div>
     </div>
-    <div id="qr_total" style="width: 80%; height: 400px; "></div>
-    <div id="qr_product" style="width: 80%;height: 400px; "></div>
-    <div id="qrApp_timeline" style="width: 80%; height: 400px; "></div>
+    <div style="width: 90%; height: 400px; ">
+        <div id="qr_total" style="width: 50%; height: 400px;float:left; "></div>
+        <div id="qr_product" style="width: 50%; height: 400px; float:right; "></div>
+    </div>
+    <div id="qrApp_timeline" style="width: 90%; height: 400px; "></div>
     <br>
-    <div id="qr_oneApp_Box" style="width: 80%; height: 400px; ">
+    <div id="qr_oneApp_Box" style="width: 90%; height: 400px; ">
         <div id="qr_app_select" class='dropdown' style="width: 40%; height: 20px; ">
             <select id='app_select' class="selectpicker" title="APP" data-style='btn-info', data-width='40%'></select>
         </div>
         <div id="qr_oneApp" style="width: 100%; height: 400px; "></div>
     </div>
     <br>
-    <div id="qrBranch_timeline" style="width: 80%; height: 400px; "></div>
-    <div id="qr_oneBranch_Box" style="width: 80%; height: 400px; ">
+<!--    <div id="qrBranch_timeline" style="width: 90%; height: 400px; "></div>
+    <div id="qr_oneBranch_Box" style="width: 90%; height: 400px; ">
         <div id="qr_branch_select" class='dropdown' style="width: 40%; height: 20px; ">
             <select id='branch_select' class="selectpicker" title="APP" data-style='btn-info', data-width='40%'></select>
         </div>
         <div id="qr_oneBranch" style="width: 100%; height: 400px; "></div>
     </div>
-    
+-->
     
     <script type="text/javascript" src="/static/js/qr_daily.js"></script>
     <script>
@@ -50,8 +52,8 @@
         qr_product(echarts);
         qrApp_timeline(echarts);
         qr_oneApp(echarts);
-        qrBranch_timeline(echarts);
-        qr_oneBranch(echarts);
+        // qrBranch_timeline(echarts);
+        // qr_oneBranch(echarts);
     </script>
    
 </body>

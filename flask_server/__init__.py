@@ -33,11 +33,6 @@ def create_app(test_config=None):
     app.config['SEND_FILE_MAX_AGE_DEFAULT'] = timedelta(seconds=1)
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(seconds=1)
 
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
-
 
     from . import db
     db.init_app(app)

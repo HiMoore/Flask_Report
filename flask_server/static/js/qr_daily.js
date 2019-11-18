@@ -1,6 +1,6 @@
 
 
-var ranges = 7; 
+var ranges = 15, months = 31; 
 
 
 function qr_total_kpi(echarts){
@@ -25,14 +25,14 @@ function qr_total_kpi(echarts){
                 {   
                     name: '交易笔数', type: 'gauge', 
                     detail: { formatter: "{value}%", fontSize: 20 }, 
-                    data: [{ value: (data['trans_num'] / 60 * 100).toFixed(2), name: '年累计交易量\n'+data['trans_num']+'亿笔' }], 
+                    data: [{ value: (data['trans_num'] / 50 * 100).toFixed(2), name: '年累计交易量\n'+data['trans_num']+'亿笔' }], 
                     center: ['25%', '45%'], radius: '70%', 
                     title: { offsetCenter: [0, '70%'] }
                 }, 
                 {   
                     name: '活卡数', type: 'gauge', 
                     detail: { formatter: "{value}%", fontSize: 20 }, 
-                    data: [{ value: (data['card_num'] / 6000 * 100).toFixed(2), name: '月均活卡量\n'+data['card_num']+"万张" }], 
+                    data: [{ value: (data['card_num'] / 4300 * 100).toFixed(2), name: '月均活卡量\n'+data['card_num']+"万张" }], 
                     center: ['75%', '45%'], radius: '70%', 
                     title: { offsetCenter: [0, '70%'] }
                 }] 
@@ -52,8 +52,8 @@ function qr_total_kpi(echarts){
         success: function (data) {
             var length = data['date'].length; 
             $("#date_select").append("<option value='昨天' selected='selected'>" + data['date'][length-1] + "</option>");
-            var i = 0; 
-            for(i=1; i<length; i++)
+            var i = length; 
+            for(; i>length-months; i--)
             {
                 $("#date_select").append("<option value='"+data['date'][i]+"'>" + data['date'][i] + "</option>");
             }
@@ -75,14 +75,14 @@ function qr_total_kpi(echarts){
                     {   
                         name: '交易笔数', type: 'gauge', 
                         detail: { formatter: "{value}%", fontSize: 20 }, 
-                        data: [{ value: (data['trans_num'] / 60 * 100).toFixed(2), name: '年累计交易量\n'+data['trans_num']+'亿笔' }], 
+                        data: [{ value: (data['trans_num'] / 50 * 100).toFixed(2), name: '年累计交易量\n'+data['trans_num']+'亿笔' }], 
                         center: ['25%', '45%'], radius: '70%', 
                         title: { offsetCenter: [0, '70%'] }
                     }, 
                     {   
                         name: '活卡数', type: 'gauge', 
                         detail: { formatter: "{value}%", fontSize: 20 }, 
-                        data: [{ value: (data['card_num'] / 6000 * 100).toFixed(2), name: '月均活卡量\n'+data['card_num']+"万张" }], 
+                        data: [{ value: (data['card_num'] / 4300 * 100).toFixed(2), name: '月均活卡量\n'+data['card_num']+"万张" }], 
                         center: ['75%', '45%'], radius: '70%', 
                         title: { offsetCenter: [0, '70%'] }
                     }] 
@@ -225,45 +225,69 @@ function qr_product(echarts) {
             myChart.hideLoading();
             myChart.setOption({
                 xAxis: { data: data['date'] }, 
-                legend: { left: 'center', top: '7%', data:['被扫', '主扫', '扫码转账', '远程转账', '快速收款码'] },
+                legend: { type: 'scroll', orient: 'vertical', right: '10', top: '30%', bottom: '30%', data:['被扫', '主扫', '扫码转账', '远程转账', '快速收款码', '直连小微', '行业码', '卡码合一'] },
                 series: [
-                    {   name: '被扫', type: 'line', data: data['0135'] , 
+                    {   name: '被扫', type: 'line', data: data['bs_num'] , 
                         markPoint: {
                             data: [{ 
-                                name: '被扫', value: Math.round( data['0135'][ length - 1 ] ), 
-                                coord: [ data['date'][ length-1 ], data['0135'][ length - 1 ] ]
+                                name: '被扫', value: Math.round( data['bs_num'][ length - 1 ] ), 
+                                coord: [ data['date'][ length-1 ], data['bs_num'][ length - 1 ] ]
                             }]
                         }
                     }, 
-                    {   name: '主扫', type: 'line', data: data['0210'], 
+                    {   name: '主扫', type: 'line', data: data['zs_num'], 
                         markPoint: {
                             data: [{ 
-                                name: '主扫', value: Math.round( data['0210'][ length - 1 ] ), 
-                                coord: [ data['date'][ length-1 ], data['0210'][ length - 1 ] ]
+                                name: '主扫', value: Math.round( data['zs_num'][ length - 1 ] ), 
+                                coord: [ data['date'][ length-1 ], data['zs_num'][ length - 1 ] ]
                             }]
                         }
                     },
-                    {   name: '扫码转账', type: 'line', data: data['0231'], 
+                    {   name: '扫码转账', type: 'line', data: data['p2p_num'], 
                         markPoint: {
                             data: [{ 
-                                name: '扫码转账', value: Math.round( data['0231'][ length - 1 ] ), 
-                                coord: [ data['date'][ length-1 ], data['0231'][ length - 1 ] ]
+                                name: '扫码转账', value: Math.round( data['p2p_num'][ length - 1 ] ), 
+                                coord: [ data['date'][ length-1 ], data['p2p_num'][ length - 1 ] ]
                             }]
                         }
                     }, 
-                    {   name: '远程转账', type: 'line', data: data['0232'], 
+                    {   name: '远程转账', type: 'line', data: data['yc_num'], 
                         markPoint: {
                             data: [{ 
-                                name: '远程转账', value: Math.round( data['0232'][ length - 1 ] ), 
-                                coord: [ data['date'][ length-1 ], data['0232'][ length - 1 ] ]
+                                name: '远程转账', value: Math.round( data['yc_num'][ length - 1 ] ), 
+                                coord: [ data['date'][ length-1 ], data['yc_num'][ length - 1 ] ]
                             }]
                         }
                     }, 
-                    {   name: '快速收款码', type: 'line', data: data['0215'], 
+                    {   name: '快速收款码', type: 'line', data: data['ks_num'], 
                         markPoint: {
                             data: [{ 
-                                name: '快速收款码', value: Math.round( data['0215'][ length - 1 ] ), 
-                                coord: [ data['date'][ length-1 ], data['0215'][ length - 1 ] ]
+                                name: '快速收款码', value: Math.round( data['ks_num'][ length - 1 ] ), 
+                                coord: [ data['date'][ length-1 ], data['ks_num'][ length - 1 ] ]
+                            }]
+                        }
+                    }, 
+                    {   name: '直连小微', type: 'line', data: data['xw_num'], 
+                        markPoint: {
+                            data: [{ 
+                                name: '直连小微', value: Math.round( data['xw_num'][ length - 1 ] ), 
+                                coord: [ data['date'][ length-1 ], data['xw_num'][ length - 1 ] ]
+                            }]
+                        }
+                    }, 
+                    {   name: '卡码合一', type: 'line', data: data['kama_num'], 
+                        markPoint: {
+                            data: [{ 
+                                name: '卡码合一', value: Math.round( data['kama_num'][ length - 1 ] ), 
+                                coord: [ data['date'][ length-1 ], data['kama_num'][ length - 1 ] ]
+                            }]
+                        }
+                    }, 
+                    {   name: '行业码', type: 'line', data: data['hym_num'], 
+                        markPoint: {
+                            data: [{ 
+                                name: '行业码', value: Math.round( data['hym_num'][ length - 1 ] ), 
+                                coord: [ data['date'][ length-1 ], data['hym_num'][ length - 1 ] ]
                             }]
                         }
                     }
@@ -324,7 +348,7 @@ function qrApp_timeline(echarts) {
             };
             var li = data['data'].length, lj = data['data'][0].length;
             var debit = {}, credit = {};
-            for(i=0; i<li; i++)
+            for(i=li-ranges; i<li; i++)
             {
                 debit[ data['index'][i] ] = [], credit[ data['index'][i] ] = [];
                 for(j=0; j<lj; j++)
@@ -336,7 +360,7 @@ function qrApp_timeline(echarts) {
                 }
             }
             var myOptions = [];
-            for(i=0; i<ranges+1; i++)
+            for(i=li-ranges; i<li; i++)
             {   
                 var optSeries = {  
                                 series: [
@@ -344,11 +368,12 @@ function qrApp_timeline(echarts) {
                                 {   name: '贷记卡', type: 'bar', stack: '笔数', data: credit[ data['index'][i] ] }],
                             };
                 myOptions.push( optSeries );
+                console.log(i);
             }
             myChart.hideLoading();
             myChart.setOption({
                 baseOption: { 
-                    timeline: { axisType: 'category', show: true, bottom: '3%', currentIndex: ranges, data: data['index']  },
+                    timeline: { axisType: 'category', show: true, bottom: '3%', currentIndex: ranges-1, data: data['index'].slice(li-ranges, li)  },
                     legend: { left: 'center', top: '7%', data:['借记卡', '贷记卡'] },
                     xAxis: { data: xticks }
                 }, 
@@ -363,6 +388,7 @@ function qrApp_timeline(echarts) {
 };
 
 
+
 function qr_oneApp(echarts) {
     var myChart = echarts.init(document.getElementById('qr_oneApp'));
     var option = {
@@ -372,6 +398,7 @@ function qr_oneApp(echarts) {
         toolbox: { feature: { 
                         dataZoom: { yAxisIndex: 'none' }, 
                         dataView: { readOnly: false }, 
+                        magicType: { type: ['line', 'bar'] }, 
                         restore: {}, 
                         saveAsImage: {}
                    }, 
@@ -405,8 +432,8 @@ function qr_oneApp(echarts) {
                     data:['借记卡笔数', '贷记卡笔数', '优惠笔数', '优惠金额'] 
                 },
                 series: [
-                    {   name: '借记卡笔数', type: 'bar', stack: '笔数', data: data['01'] }, 
-                    {   name: '贷记卡笔数', type: 'bar', stack: '笔数', data: data['02'] },
+                    {   name: '借记卡笔数', type: 'bar', stack: '笔数', data: data['借记卡'] }, 
+                    {   name: '贷记卡笔数', type: 'bar', stack: '笔数', data: data['贷记卡'] },
                     {   name: '优惠笔数', type: 'line', data: data['coupon_num'] }, 
                     {   name: '优惠金额', type: 'line', data: data['coupon_at'] }
                 ], 
@@ -455,8 +482,8 @@ function qr_oneApp(echarts) {
                         data:['借记卡笔数', '贷记卡笔数', '优惠笔数', '优惠金额'] 
                     },
                     series: [
-                        {   name: '借记卡笔数', type: 'bar', stack: '笔数', data: data['01'] }, 
-                        {   name: '贷记卡笔数', type: 'bar', stack: '笔数', data: data['02'] },
+                        {   name: '借记卡笔数', type: 'bar', stack: '笔数', data: data['借记卡'] }, 
+                        {   name: '贷记卡笔数', type: 'bar', stack: '笔数', data: data['贷记卡'] },
                         {   name: '优惠笔数', type: 'line', data: data['coupon_num'] }, 
                         {   name: '优惠金额', type: 'line', data: data['coupon_at'] }
                     ], 
